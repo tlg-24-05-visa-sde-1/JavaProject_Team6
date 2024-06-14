@@ -1,5 +1,5 @@
 package com.austinactivities;
 
-class Main {
+class Board {
 
 }
