@@ -3,8 +3,7 @@ import java.util.ArrayList;
 
 public class User {
     private String userName;
-
-
+    private ArrayList<Interests> interestList=new ArrayList<>();
 
     public User() {
     }
@@ -13,8 +12,15 @@ public class User {
     }
 
     public void setUser(String userName) {
-        //TODO will need to verify that the userName isnt already selected by other users
-        // will throw exception if username is already selected
+        //TODO verify if username in database, return exception if found
+        this.userName = userName;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void addInterest(Interests i) {
+        addInterest(i);
+    }
 }
