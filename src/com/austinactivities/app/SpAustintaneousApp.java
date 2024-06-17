@@ -1,5 +1,7 @@
 package com.austinactivities.app;
 
+import com.apps.util.Console;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,12 +13,24 @@ public class SpAustintaneousApp {
     public void execute() {
         welcomeScreen();
         //promptForNewOrOldUser();
-
         //String user = promptForNewOrReturningUser();      //prompt screen asking if new or returning user
         //userLoginScreen();
         //showChoices();                                     //Choice Screen 1)Returning - dump recs/view recs  2)NEW user - shows choices of categories and asks to select from interests
         //showBoard();
-        //updateBoard();      //will update
+        //updateBoard();      //will update the board
+        goodbyeScreen();
+    }
+
+    private void goodbyeScreen() {
+        clear();
+        String text = "T H A N K   Y O U !";
+
+        for (int i = 0; i < text.length(); i++) {
+            System.out.print(text.charAt(i));
+            Console.pause(100);
+        }
+        pause(2000);
+        clear();
     }
 
 
