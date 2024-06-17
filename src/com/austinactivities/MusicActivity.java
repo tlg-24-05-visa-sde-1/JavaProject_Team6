@@ -38,10 +38,10 @@ public class MusicActivity implements Activity {
     @Override
     public String toString() {
         return "MusicActivity{" +
-                "musicName='" + musicName + '\'' +
-                ", musicDescription='" + musicDescription + '\'' +
-                ", musicLocation='" + musicLocation + '\'' +
-                ", interestsList=" + interestsList +
+                "musicName='" + getName() + '\'' +
+                ", musicDescription='" + getDescription() + '\'' +
+                ", musicLocation='" + getLocation() + '\'' +
+                ", interestsList=" + getType() +
                 '}';
     }
 }

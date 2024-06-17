@@ -1,0 +1,1 @@
+"name": "Barton Springs", "description": "Natural Spring, great for cooling off and swimming", "location": "Barton Springs, Barton Springs Rd, Austin, TX 78704", "type": ["Water_Activity", "Hiking_Or_Parks"]

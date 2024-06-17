@@ -38,10 +38,10 @@ public class FoodActivity implements Activity {
     @Override
     public String toString() {
         return "FoodActivity{" +
-                "foodName='" + foodName + '\'' +
-                ", foodDescription='" + foodDescription + '\'' +
-                ", foodLocation='" + foodLocation + '\'' +
-                ", interestsList=" + interestsList +
+                "foodName='" + getName() + '\'' +
+                ", foodDescription='" + getDescription() + '\'' +
+                ", foodLocation='" + getLocation() + '\'' +
+                ", interestsList=" + getType() +
                 '}';
     }
 }
