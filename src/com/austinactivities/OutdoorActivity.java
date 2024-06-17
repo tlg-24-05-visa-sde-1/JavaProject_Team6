@@ -38,10 +38,10 @@ public class OutdoorActivity implements Activity {
     @Override
     public String toString() {
         return "OutdoorActivity{" +
-                "outdoorName='" + outdoorName + '\'' +
-                ", outdoorDescription='" + outdoorDescription + '\'' +
-                ", outdoorLocation='" + outdoorLocation + '\'' +
-                ", interestsList=" + interestsList +
+                "outdoorName='" + getName() + '\'' +
+                ", outdoorDescription='" + getDescription() + '\'' +
+                ", outdoorLocation='" + getLocation() + '\'' +
+                ", interestsList=" + getType() +
                 '}';
     }
 }

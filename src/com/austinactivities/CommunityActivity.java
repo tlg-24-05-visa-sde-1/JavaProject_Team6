@@ -39,10 +39,10 @@ public class CommunityActivity implements Activity {
     @Override
     public String toString() {
         return "CommunityActivity{" +
-                "communityName='" + communityName + '\'' +
-                ", communityDescription='" + communityDescription + '\'' +
-                ", communityLocation='" + communityLocation + '\'' +
-                ", interestsList=" + interestsList +
+                "communityName='" + getName() + '\'' +
+                ", communityDescription='" + getDescription() + '\'' +
+                ", communityLocation='" + getLocation() + '\'' +
+                ", interestsList=" + getType() +
                 '}';
     }
 }
