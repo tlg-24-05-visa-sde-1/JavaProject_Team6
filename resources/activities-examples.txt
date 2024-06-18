@@ -1,2 +1,3 @@
-"name": "Barton Springs", "description": "Natural Spring, great for cooling off and swimming", "location": "Barton Springs, Barton Springs Rd, Austin, TX 78704", "type": ["Water_Activity"]
+"name": "Barton Springs", "description": "Natural Spring, great for cooling off and swimming", "location": "Barton Springs, Barton Springs Rd, Austin, TX 78704", "type": ["Water_Activity", "Hiking_Or_Parks"]
 "name": "Franklin Barbecue", "description": "Long lines form early for brisket, pulled pork & other smoked meats at this bustling spot.", "location": "900 E 11th St, Austin, TX 78702", "type": ["Restaurants"]
+"name": "Stubb's BBQ", "description": "Beer, brisket and music Downtown with a renowned Sunday gospel brunch.", "location": "801 Red River St, Austin, TX 78701", "type": ["Restaurants"]

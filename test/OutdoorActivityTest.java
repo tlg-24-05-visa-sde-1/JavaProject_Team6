@@ -12,7 +12,8 @@ public class OutdoorActivityTest {
         // testing new load
         LoadActivitiesAndCreate start = new LoadActivitiesAndCreate();
         start.loadActivitiesFromTxt("./resources/activities-examples.txt");
-        System.out.println(start.getActivities());
+        List<Activity> activityList = start.getActivities();
+        start.dump(activityList);
         System.out.println();
         start.getActivitiesOnInterests("Restaurants");
 
