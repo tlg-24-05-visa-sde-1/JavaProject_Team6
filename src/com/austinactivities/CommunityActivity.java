@@ -13,6 +13,12 @@ public class CommunityActivity implements Activity {
         this.communityName = communityName;
         this.communityDescription = communityDescription;
         this.communityLocation = communityLocation;
+        // validate that only allowed Interests are here
+        for (Interests interest: interestsList) {
+            if (!interest.equals(Interests.Museums) && !interest.equals(Interests.Group_Fitness) && !interest.equals(Interests.Community_Gathering) && !interest.equals(Interests.Celebrations)) {
+                throw new RuntimeException("Invalid Interests for MusicActivity");
+            }
+        }
         this.interestsList = interestsList;
     }
 
@@ -38,11 +44,6 @@ public class CommunityActivity implements Activity {
 
     @Override
     public String toString() {
-        return "CommunityActivity{" +
-                "communityName='" + getName() + '\'' +
-                ", communityDescription='" + getDescription() + '\'' +
-                ", communityLocation='" + getLocation() + '\'' +
-                ", interestsList=" + getType() +
-                '}';
+        return "Come join the Austin community at " + getLocation() + " for the " + getName() + " event, details: " + getDescription();
     }
 }

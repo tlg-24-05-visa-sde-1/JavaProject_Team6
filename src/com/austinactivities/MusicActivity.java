@@ -12,6 +12,12 @@ public class MusicActivity implements Activity {
         this.musicName = musicName;
         this.musicDescription = musicDescription;
         this.musicLocation = musicLocation;
+        // validate that only allowed Interests are here
+        for (Interests interest: interestsList) {
+            if (!interest.equals(Interests.Music_Concert) && !interest.equals(Interests.Music_Festival) && !interest.equals(Interests.Live_Music)) {
+                throw new RuntimeException("Invalid Interests for MusicActivity");
+            }
+        }
         this.interestsList = interestsList;
     }
 
@@ -37,11 +43,6 @@ public class MusicActivity implements Activity {
 
     @Override
     public String toString() {
-        return "MusicActivity{" +
-                "musicName='" + getName() + '\'' +
-                ", musicDescription='" + getDescription() + '\'' +
-                ", musicLocation='" + getLocation() + '\'' +
-                ", interestsList=" + getType() +
-                '}';
+        return getName() + " is here! Enjoy music at " + getLocation() + " more details to get you going: " + getDescription();
     }
 }
