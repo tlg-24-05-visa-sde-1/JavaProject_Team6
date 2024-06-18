@@ -104,40 +104,34 @@ public class SpAustintaneousApp {
 
     public void selectInterestCategories() {
         clear();
+        displayInterestsMenu();
+        System.out.println();
+
         boolean done = false;
-
         while (!done) {
-            System.out.println("List of Interest Categories:");
-            System.out.println("1.Water Activity");
-            System.out.println("...");
-            System.out.println("5.Exit");
-            System.out.println();
-            System.out.println();
-
-            String input = prompter.prompt("Enter your choice: ");
-            int choice = Integer.parseInt(input.trim());
-            Interests i = choicetoInterests(choice);
-            switch (choice) {
-                case 1:
-                    user.addInterest(i);
-                    break;
-                case 5 :
-                    done = true;
-                    break;
-                default:
-                    System.out.println("Invalid choice");
+            String input = prompter.prompt("Enter the number corresponding to your choice, or press [Enter] when done: ");
+            if(!input.trim().isEmpty()){
+                int i = Integer.parseInt(input.trim());
+                if (i >= 0 && i < Interests.values().length) {
+                    //selecting the chosen input interest from user in int form and grabbing the corresponding enum
+                    Interests selectedInterest = Interests.values()[i];
+                    user.addInterest(selectedInterest);
+                } else {
+                    System.out.println("Invalid choice. Please try again.");
+                }
             }
-            System.out.println();
+            else{
+                done=true;
+            }
         }
     }
 
-    private Interests choicetoInterests(int choice) {
-        Interests interest = null;
-        //TODO - conversion of choice to enum activity
-        System.out.println("Water Activity conversion");
-        return Interests.Water_Activity;
+    public static void displayInterestsMenu() {
+        System.out.println("List of Interest Categories:");
+        for (Interests interest : Interests.values()) {
+            System.out.println(interest.ordinal() + " - " + interest);
+        }
     }
-
 
     private void goodbyeScreen() {
         clear();
