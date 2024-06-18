@@ -12,6 +12,12 @@ public class OutdoorActivity implements Activity {
         this.outdoorName = outdoorName;
         this.outdoorDescription = outdoorDescription;
         this.outdoorLocation = outdoorLocation;
+        // validate that only allowed Interests are here
+        for (Interests interest: interestsList) {
+            if (!interest.equals(Interests.Water_Activity) && !interest.equals(Interests.Hiking_Or_Parks) && !interest.equals(Interests.Sightseeing)) {
+                throw new RuntimeException("Invalid Interests for MusicActivity");
+            }
+        }
         this.interestsList = interestsList;
     }
 
@@ -37,11 +43,6 @@ public class OutdoorActivity implements Activity {
 
     @Override
     public String toString() {
-        return "OutdoorActivity{" +
-                "outdoorName='" + getName() + '\'' +
-                ", outdoorDescription='" + getDescription() + '\'' +
-                ", outdoorLocation='" + getLocation() + '\'' +
-                ", interestsList=" + getType() +
-                '}';
+        return "The sun calls for you to head to " + getName() + " and enjoy " + getDescription() + " at " + getLocation();
     }
 }

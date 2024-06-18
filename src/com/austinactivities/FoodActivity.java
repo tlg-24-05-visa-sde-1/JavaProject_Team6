@@ -12,6 +12,12 @@ public class FoodActivity implements Activity {
         this.foodName = foodName;
         this.foodDescription = foodDescription;
         this.foodLocation = foodLocation;
+        // validate that only allowed Interests are here
+        for (Interests interest: interestsList) {
+            if (!interest.equals(Interests.Restaurants) && !interest.equals(Interests.Pop_Up_Food) && !interest.equals(Interests.Food_Trucks)) {
+                throw new RuntimeException("Invalid Interests for MusicActivity");
+            }
+        }
         this.interestsList = interestsList;
     }
 
@@ -37,11 +43,6 @@ public class FoodActivity implements Activity {
 
     @Override
     public String toString() {
-        return "FoodActivity{" +
-                "foodName='" + getName() + '\'' +
-                ", foodDescription='" + getDescription() + '\'' +
-                ", foodLocation='" + getLocation() + '\'' +
-                ", interestsList=" + getType() +
-                '}';
+        return "Time to get some good eats at " + getName() + " people have said: " + getDescription() + " located at " + getLocation();
     }
 }
