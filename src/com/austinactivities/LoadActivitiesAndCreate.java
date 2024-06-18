@@ -81,8 +81,10 @@ public class LoadActivitiesAndCreate {
         return activity;
     }
 
-    private String extractValue(String value) {
-        return value.split(": ")[1].replace("\"", "").trim();
+    public void dump(List<Activity> activities) {
+        for (Activity activity: activities) {
+            System.out.println(activity);
+        }
     }
 
     // helper method to get activities based on interests
