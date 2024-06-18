@@ -88,13 +88,13 @@ public class LoadActivitiesAndCreate {
     }
 
     // helper method to get activities based on interests
-    public void getActivitiesOnInterests(String preference) {
-        System.out.println("Retrieving activities from preference: " + preference);
-        Interests interest = Interests.valueOf(preference);
-        for (Activity activity : activities) {
+    public List<Activity> getActivitiesOnInterests(Interests interest) {
+        List<Activity> listForOneInterest = new ArrayList<>();
+        for (Activity activity: activities) {
             if (activity.getType().contains(interest)) {
-                System.out.println(activity);
+                listForOneInterest.add(activity);
             }
         }
+        return listForOneInterest;
     }
 }
