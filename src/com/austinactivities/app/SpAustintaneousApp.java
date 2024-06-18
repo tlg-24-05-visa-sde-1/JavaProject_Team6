@@ -27,6 +27,7 @@ public class SpAustintaneousApp {
         mainMenu();
         goodbyeScreen();
     }
+    //prompts for new or returning user - if new calls createAccount(), if old calls signIn()
     public void promptForNewOrReturningUser(){
         clear();
 
@@ -192,7 +193,6 @@ public class SpAustintaneousApp {
         }
         pause(2000);
         clear();
-        mainMenu();
     }
 
     private void goodbyeScreen() {
