@@ -3,7 +3,10 @@ package com.austinactivities;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
  * Load activities from txt file for object creation and to be used in app
@@ -21,34 +24,37 @@ public class LoadActivitiesAndCreate {
 
     // methods
     public void loadActivitiesFromTxt(String filePath) {
+        // regular expression pattern for entry
+        Pattern pattern = Pattern.compile("\"name\": \"(.*?)\", \"description\": \"(.*?)\", \"location\": \"(.*?)\", \"type\": \\[(.*?)\\]");
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 try {
-                    String[] parts = line.split(", (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                    if (parts.length != 4) {
+
+                    // Matcher obj to match line w pattern
+                    Matcher matcher = pattern.matcher(line);
+
+                    // if pattern matches line, get data
+                    if (matcher.find()) {
+                        String name = matcher.group(1);
+                        String description = matcher.group(2);
+                        String location = matcher.group(3);
+                        // for type
+                        String[] interestsArray = matcher.group(4).split(", ");
+                        List<Interests> interestsList = new ArrayList<>();
+
+                        // convert string to enum and add
+                        for (String interest: interestsArray) {
+                            interestsList.add(Interests.valueOf(interest.replace("\"", "").trim()));
+                        }
+
+                        Activity activity = createActivity(name, description, location, interestsList);
+                        if (activity != null) {
+                            activities.add(activity);
+                        }
+                    } else {
                         System.err.println("Invalid line format: " + line);
-                        continue;
-                    }
-
-                    String name = extractValue(parts[0]);
-                    String description = extractValue(parts[1]);
-                    String location = extractValue(parts[2]);
-                    String[] interestsArray = extractValue(parts[3]).replace("[", "").replace("]", "").split(", ");
-                    List<Interests> interestsList = new ArrayList<>();
-                    for (String interest : interestsArray) {
-                        interestsList.add(Interests.valueOf(interest));
-                    }
-
-                    // Create a new activity based on interests
-
-                    Activity activity = createActivity(name, description, location, interestsList);
-
-
-
-                    // Null check
-                    if (activity != null) {
-                        activities.add(activity);
                     }
                 } catch (Exception e) {
                     System.err.println("Error parsing line: " + line);
@@ -56,6 +62,7 @@ public class LoadActivitiesAndCreate {
                 }
             }
         } catch (Exception e) {
+            // error if opening/read file
             e.printStackTrace();
         }
     }
@@ -74,8 +81,10 @@ public class LoadActivitiesAndCreate {
         return activity;
     }
 
-    private String extractValue(String value) {
-        return value.split(": ")[1].replace("\"", "").trim();
+    public void dump(List<Activity> activities) {
+        for (Activity activity: activities) {
+            System.out.println(activity);
+        }
     }
 
     // helper method to get activities based on interests
