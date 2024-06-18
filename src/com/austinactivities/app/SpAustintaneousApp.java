@@ -7,25 +7,24 @@ import com.austinactivities.Interests;
 import com.austinactivities.RecommendedActivities;
 import com.austinactivities.User;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static com.apps.util.Console.*;
 
 public class SpAustintaneousApp {
     private final Prompter prompter  = new Prompter(new Scanner(System.in));
-    private  User user;
+    private  User user ;
     private ArrayList<Interests> interestList = new ArrayList<>();
+    private HashSet<User> users = loadUsers();
 
     public void execute() {
-        welcomeScreen();
+        //welcomeScreen();
         promptForNewOrReturningUser();      //prompt screen asking if new or returning user
-        mainMenu();
-        goodbyeScreen();
+        //mainMenu();
+        //goodbyeScreen();
     }
     //prompts for new or returning user - if new calls createAccount(), if old calls signIn()
     public void promptForNewOrReturningUser(){
@@ -62,6 +61,12 @@ public class SpAustintaneousApp {
         clear();
         String input = prompter.prompt("Enter username: ");
         user = new User(input.trim());
+        users.add(user);
+        //DELETE
+        save(users);
+        for(User u : users){
+            System.out.println(u);
+        }
     }
 
     private void signIn() {
@@ -106,15 +111,16 @@ public class SpAustintaneousApp {
     public void generateRecommendationList() {
         clear();
         //checks if user has actual populated interest list first
-        if (user.getInterestList().isEmpty()|| user.getInterestList()==null){
+        if (user.getInterestList().isEmpty()||user.getInterestList()==null){
             System.out.println("Your current interest list is empty.");
             System.out.println("Unable to generate recommendation list.");
             System.out.println("Please select interest categories first");
             returningToMainMenu();
         }
         else{
-            List<Activity> generatedList = RecommendedActivities.generateActivityList(user.getInterestList());
-            printActivityList(generatedList);
+            RecommendedActivities rc = new RecommendedActivities();
+            List<Activity> generatedList = rc.generateActivityList(user.getInterestList());
+           printActivityList(generatedList);
 
             //redirects user to main menu after they input [Enter]
             boolean done = false;
@@ -206,4 +212,36 @@ public class SpAustintaneousApp {
         pause(2000);
         clear();
     }
+
+
+    //Implementaion of load/save below
+    private static final String DATA_FILE_PATH = "resources/users.dat";
+    //private static final String STUDENT_ID_FILE_PATH = "resources/student-ids.csv";
+
+    private static void save(HashSet<User> users) {
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(DATA_FILE_PATH))){
+            out.writeObject(users);      //write "me" ( the board object) to the file( as bytes)
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private static HashSet<User> loadUsers() {
+        HashSet<User> users = null;
+
+        if(Files.exists(Path.of(DATA_FILE_PATH))) {//file exists, read in the file
+            try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(DATA_FILE_PATH))) {
+                 users =(HashSet<User>) in.readObject();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        else{ // create a new board
+            users = new HashSet<>();
+        }
+
+        return users;
+    }
+
 }
