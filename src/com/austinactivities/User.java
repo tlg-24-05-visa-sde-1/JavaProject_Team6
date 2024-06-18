@@ -16,7 +16,6 @@ public class User implements Serializable {
     }
 
     public void setUser(String userName) {
-        //TODO verify if username in database, return exception if found
         this.userName = userName;
     }
 
@@ -33,4 +32,11 @@ public class User implements Serializable {
         System.out.println(i + " has been added to your interests.");
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", interestList=" + interestList +
+                '}';
+    }
 }
