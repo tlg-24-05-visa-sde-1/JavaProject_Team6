@@ -101,6 +101,7 @@ public class SpAustintaneousApp {
 
         }
     }
+
     public void generateRecommendationList() {
         clear();
         //checks if user has actual populated interest list first
@@ -170,8 +171,6 @@ public class SpAustintaneousApp {
             System.out.println(interest.ordinal() + " - " + interest);
         }
     }
-
-
 
     private void welcomeScreen(){
         try {

@@ -30,5 +30,7 @@ public class User implements Serializable {
 
     public void addInterest(Interests i) {
         interestList.add(i);
+        System.out.println(i + " has been added to your interests.");
     }
+
 }
