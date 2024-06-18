@@ -2,13 +2,16 @@ package com.austinactivities.app;
 
 import com.apps.util.Console;
 import com.apps.util.Prompter;
+import com.austinactivities.Activity;
 import com.austinactivities.Interests;
+import com.austinactivities.RecommendedActivities;
 import com.austinactivities.User;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static com.apps.util.Console.*;
@@ -54,7 +57,7 @@ public class SpAustintaneousApp {
         }
     }
 
-    private void createAccount() {
+    public void createAccount() {
         clear();
         String input = prompter.prompt("Enter username: ");
         user = new User(input.trim());
@@ -66,7 +69,7 @@ public class SpAustintaneousApp {
         System.out.println("Signing in...");
     }
 
-    private void mainMenu() {
+    public void mainMenu() {
         clear();
 
         boolean done = false;
@@ -99,7 +102,40 @@ public class SpAustintaneousApp {
         }
     }
     public void generateRecommendationList() {
-        //TODO
+        clear();
+        //checks if user has actual populated interest list first
+        if (user.getInterestList().isEmpty()|| user.getInterestList()==null){
+            System.out.println("Your current interest list is empty.");
+            System.out.println("Unable to generate recommendation list.");
+            System.out.println("Please select interest categories first");
+            returningToMainMenu();
+        }
+        else{
+            List<Activity> generatedList = RecommendedActivities.generateActivityList(user.getInterestList());
+            printActivityList(generatedList);
+
+            //redirects user to main menu after they input [Enter]
+            boolean done = false;
+            while (!done) {
+                String input = prompter.prompt("Press [Enter] when done viewing and you will be redirected back to the main menu. ");
+                if (!input.trim().isEmpty()) {
+                    System.out.println("Incorrect input");
+                }
+                else {
+                    done = true;
+                }
+
+            }
+        }
+        clear();
+        returningToMainMenu();
+    }
+
+    private void printActivityList(List<Activity> activityList) {
+        System.out.println("Based on your interests, your recommended activity list is as follows:");
+        for (Activity activity : activityList) {
+            System.out.println(activity);
+        }
     }
 
     public void selectInterestCategories() {
@@ -122,8 +158,10 @@ public class SpAustintaneousApp {
             }
             else{
                 done=true;
+                System.out.println("Interest selection is done.");
             }
         }
+        returningToMainMenu();
     }
 
     public static void displayInterestsMenu() {
@@ -131,6 +169,31 @@ public class SpAustintaneousApp {
         for (Interests interest : Interests.values()) {
             System.out.println(interest.ordinal() + " - " + interest);
         }
+    }
+
+
+
+    private void welcomeScreen(){
+        try {
+            clear();
+            String welcome = Files.readString(Path.of("resources/welcomescreen.txt"));
+            System.out.println("\n" + welcome + "\n");
+            pause(3000);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void returningToMainMenu() {
+        String text = "... Returning to main menu ...";
+
+        for (int i = 0; i < text.length(); i++) {
+            System.out.print(text.charAt(i));
+            Console.pause(100);
+        }
+        pause(2000);
+        clear();
+        mainMenu();
     }
 
     private void goodbyeScreen() {
@@ -143,17 +206,5 @@ public class SpAustintaneousApp {
         }
         pause(2000);
         clear();
-    }
-
-    private void welcomeScreen(){
-        try {
-            clear();
-            String welcome = Files.readString(Path.of("resources/welcomescreen.txt"));
-            System.out.println("\n" + welcome + "\n");
-            pause(3000);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
