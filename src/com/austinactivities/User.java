@@ -11,7 +11,7 @@ public class User implements Serializable {
     public User() {
     }
     public User(String name) {
-        setUser(userName);
+        setUser(name);
         this.interestList = new ArrayList<>();
     }
 
