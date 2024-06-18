@@ -2,11 +2,13 @@ package com.austinactivities.app;
 
 import com.apps.util.Console;
 import com.apps.util.Prompter;
+import com.austinactivities.Interests;
 import com.austinactivities.User;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static com.apps.util.Console.*;
@@ -14,7 +16,7 @@ import static com.apps.util.Console.*;
 public class SpAustintaneousApp {
     private final Prompter prompter  = new Prompter(new Scanner(System.in));
     private  User user;
-    private boolean returningUser = false;
+    private ArrayList<Interests> interestList = new ArrayList<>();
 
     public void execute() {
         welcomeScreen();
@@ -22,7 +24,7 @@ public class SpAustintaneousApp {
         mainMenu();
         goodbyeScreen();
     }
-    private void promptForNewOrReturningUser(){
+    public void promptForNewOrReturningUser(){
         clear();
 
         boolean done = false;
@@ -53,14 +55,15 @@ public class SpAustintaneousApp {
     }
 
     private void createAccount() {
-        //TODO
         clear();
-        System.out.println("Creating a new account...");
+        String input = prompter.prompt("Enter username: ");
+        user = new User(input.trim());
     }
+
     private void signIn() {
         //TODO
         clear();
-        System.out.println("Sign in...");
+        System.out.println("Signing in...");
     }
 
     private void mainMenu() {
@@ -95,16 +98,46 @@ public class SpAustintaneousApp {
 
         }
     }
-
-    private void generateRecommendationList() {
-        clear();
-        System.out.println("Generating Recommendation List");
+    public void generateRecommendationList() {
+        //TODO
     }
 
-    private void selectInterestCategories() {
+    public void selectInterestCategories() {
         clear();
-        System.out.println("Generating Interest Categories");
+        boolean done = false;
+
+        while (!done) {
+            System.out.println("List of Interest Categories:");
+            System.out.println("1.Water Activity");
+            System.out.println("...");
+            System.out.println("5.Exit");
+            System.out.println();
+            System.out.println();
+
+            String input = prompter.prompt("Enter your choice: ");
+            int choice = Integer.parseInt(input.trim());
+            Interests i = choicetoInterests(choice);
+            switch (choice) {
+                case 1:
+                    user.addInterest(i);
+                    break;
+                case 5 :
+                    done = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+            System.out.println();
+        }
     }
+
+    private Interests choicetoInterests(int choice) {
+        Interests interest = null;
+        //TODO - conversion of choice to enum activity
+        System.out.println("Water Activity conversion");
+        return Interests.Water_Activity;
+    }
+
 
     private void goodbyeScreen() {
         clear();
