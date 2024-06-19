@@ -1,8 +1,9 @@
 package com.austinactivities;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CommunityActivity implements Activity {
+public class CommunityActivity implements Activity, Serializable {
 
     private final String communityName;
     private final String communityDescription;

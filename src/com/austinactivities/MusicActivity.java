@@ -1,8 +1,10 @@
 package com.austinactivities;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
-public class MusicActivity implements Activity {
+public class MusicActivity implements Activity, Serializable {
     private final String musicName;
     private final String musicDescription;
     private final String musicLocation;

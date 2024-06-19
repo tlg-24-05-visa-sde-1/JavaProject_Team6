@@ -1,8 +1,9 @@
 package com.austinactivities;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class FoodActivity implements Activity {
+public class FoodActivity implements Activity, Serializable {
     private final String foodName;
     private final String foodDescription;
     private final String foodLocation;
