@@ -1,9 +1,10 @@
 package com.austinactivities;
 
 
+import java.io.Serializable;
 import java.util.*;
 
-public class RecommendedActivities{
+public class RecommendedActivities implements Serializable {
 
    public  List<Activity> generateActivityList(List<Interests> listOfInterests){
         List<Activity> generatedActivities = new ArrayList<>();
