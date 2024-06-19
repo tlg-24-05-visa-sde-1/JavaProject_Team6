@@ -59,20 +59,50 @@ public class SpAustintaneousApp {
 
     public void createAccount() {
         clear();
-        String input = prompter.prompt("Enter username: ");
-        user = new User(input.trim());
-        users.add(user);
-        //DELETE
-        save(users);
-        for(User u : users){
-            System.out.println(u);
+        String username;
+                //= prompter.prompt("Enter username: ");
+        while(true){
+            username = prompter.prompt("Enter username: ").trim();
+            if(checkUsername(username)){
+                System.out.println("Error: Username is already taken. Please try again.");
+            }
+            else{
+                user = new User(username);
+                users.add(user);
+                System.out.println("Account created successfully for username: " + user.getUserName());
+                break;
+            }
         }
+        save(users);
     }
 
+    //helper method for signin
+    private boolean checkUsername(String username) {
+        boolean found = false;
+        for(User u: users){
+            if(username.equalsIgnoreCase(u.getUserName())){
+                found = true;
+            }
+        }
+        return found;
+    }
+    
+
     private void signIn() {
-        //TODO
         clear();
-        System.out.println("Signing in...");
+        String input = prompter.prompt("Enter username: ");
+        String trimmedInput = input.trim();
+
+        //find user
+        for (User userInList : users) {
+            if(trimmedInput.equalsIgnoreCase(userInList.getUserName())){
+                user = userInList;
+            }
+        }
+        //if traversing the saved users and user note found
+        if(user == null){
+            System.out.println("Invalid username. Please try again.");
+        }
     }
 
     public void mainMenu() {
@@ -202,6 +232,7 @@ public class SpAustintaneousApp {
     }
 
     private void goodbyeScreen() {
+        save(users);
         clear();
         String text = "T H A N K   Y O U !";
 
@@ -214,7 +245,7 @@ public class SpAustintaneousApp {
     }
 
 
-    //Implementaion of load/save below
+    //Implementation of load/save below
     private static final String DATA_FILE_PATH = "resources/users.dat";
     //private static final String STUDENT_ID_FILE_PATH = "resources/student-ids.csv";
 
