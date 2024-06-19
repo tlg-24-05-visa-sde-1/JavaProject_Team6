@@ -27,20 +27,6 @@ public class SpAustintaneousApp {
         goodbyeScreen();
     }
 
-/*
-    //DELETE BELOW WHEN DONE
-    public void printUser(){
-        System.out.println(user);
-    }
-    //DELETE BELOW WHEN DONE
-    public void printUsers(){
-        for(User u : users){
-            System.out.println(u);
-        }
-
-    }
-*/
-
     //*** MENU METHODS ***
 
     //prompts for new or returning user - if new calls createAccount(), if old calls signIn()
