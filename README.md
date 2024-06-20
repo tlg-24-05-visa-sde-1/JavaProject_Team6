@@ -18,18 +18,21 @@ SpAustintaneous is a console-based Java application designed to help users disco
 
 ### Executing program
 
-* How to run the program:
+* Execute the program: 
+  * Feel free to run your file directly from the command line. Use either of the following files: 
+    * run.sh
+    * run.cmd
 
-* Step-by-step bullets
-Welcome to our program! 
-The initial screen will ask you to either create a new username or sign in if you are a returning user : 
-![Sign On Screen](image-1.png)
-After signing in , the program will show you the main menu as seen below. It is recommended to choosing the first option to select your interests if you are a new user before  using option 2, generating the recommended activity list. 
-![Main Menu](image-2.png)
-In option 3 you can see your personally saved interest categories and recommended activities. 
-![Saved Lists](image-3.png)
-Below you can see example of a randomly generated activity list: 
-![Example of Saved Activity List](image-4.png)
+* Step-by-step User Interaction
+  * Welcome to our program!
+  * The initial screen will ask you to either create a new username or sign in if you are a returning user : 
+  ![Sign On Screen](image-1.png)
+  * After signing in , the program will show you the main menu as seen below. It is recommended to choosing the first option to select your interests if you are a new user before  using option 2, generating the recommended activity list. 
+  ![Main Menu](image-2.png)
+  * In option 3 you can see your personally saved interest categories and recommended activities. 
+  ![Saved Lists](image-3.png)
+  * Below you can see example of a randomly generated activity list: 
+  ![Example of Saved Activity List](image-4.png)
 
 ## Authors
 
