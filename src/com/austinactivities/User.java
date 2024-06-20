@@ -12,6 +12,7 @@ public class User implements Serializable {
 
     public User() {
     }
+
     public User(String name) {
         setUser(name);
         this.interestList = new ArrayList<>();
@@ -37,10 +38,22 @@ public class User implements Serializable {
 
     public void saveActivityList(ArrayList<Activity> activityList) {
         this.activityList.addAll(activityList);
+        removeDuplicates();
     }
 
     public List<Activity> getActivityList() {
         return Collections.unmodifiableList(activityList);
+    }
+
+    private void removeDuplicates(){
+        //creates a HashSet from the activitylist to remove duplicates
+        HashSet<Activity> set = new HashSet<>(activityList);
+
+        // Clear the original list
+       this.activityList.clear();
+
+        // Add all elements from the HashSet back to the list
+        activityList.addAll(set);
     }
 
     @Override
