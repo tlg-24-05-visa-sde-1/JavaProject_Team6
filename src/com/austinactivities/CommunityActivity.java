@@ -45,6 +45,6 @@ public class CommunityActivity implements Activity, Serializable {
 
     @Override
     public String toString() {
-        return "Come join the Austin community at " + getLocation() + " for the " + getName() + " event, details: " + getDescription();
+        return "Come join the Austin community at " + getLocation() + " for the " + getName() + ", details: " + getDescription();
     }
 }
