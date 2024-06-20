@@ -10,6 +10,7 @@ import com.austinactivities.User;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.SQLOutput;
 import java.util.*;
 
 import static com.apps.util.Console.*;
@@ -30,8 +31,8 @@ public class SpAustintaneousApp {
     //*** MENU METHODS ***
 
     //prompts for new or returning user - if new calls createAccount(), if old calls signIn()
-    public void promptForNewOrReturningUser(){
-        clear();
+    private void promptForNewOrReturningUser(){
+        //clear();
 
         boolean done = false;
 
@@ -64,17 +65,18 @@ public class SpAustintaneousApp {
         }
     }
 
-    public void mainMenu() {
+    private void mainMenu() {
         clear();
 
         boolean done = false;
 
         while (!done) {
-            System.out.println("SpAUSTINtaneous Menu:");
+            System.out.println("-----       SpAUSTINtaneous Menu:       -----\n");
             System.out.println("1. Select Interest Categories");
             System.out.println("2. Generate a Recommendation List");
             System.out.println("3. View previously saved lists");
             System.out.println("4. Exit\n");
+            System.out.println("-----  SELECT FROM THE OPTIONS ABOVE    -----\n");
 
             String input = prompter.prompt("Enter your choice: ");
             //accounting for non-numerical digit
@@ -96,7 +98,7 @@ public class SpAustintaneousApp {
         }
     }
 
-    public void selectInterestCategories() {
+    private void selectInterestCategories() {
         clear();
         displayInterestsMenu();
         System.out.println();
@@ -127,20 +129,21 @@ public class SpAustintaneousApp {
         returningToMainMenu();
     }
 
-    public static void displayInterestsMenu() {
-        System.out.println("List of Interest Categories:");
+    private static void displayInterestsMenu() {
+        System.out.println("-----    LIST OF INTEREST CATEGORIES:   -----\n");
         for (Interests interest : Interests.values()) {
             System.out.println(interest.ordinal() + " - " + interest);
         }
+        System.out.println("\n-----  SELECT FROM THE OPTIONS ABOVE    -----\n");
     }
 
-    public void generateRecommendationList() {
+    private void generateRecommendationList() {
         clear();
         //checks if user has actual populated interest list first
         if (user.getInterestList().isEmpty()||user.getInterestList()==null){
-            System.out.println("Your current interest list is empty.");
+            System.out.println("\nYour current interest list is empty.");
             System.out.println("Unable to generate recommendation list.");
-            System.out.println("Please select interest categories first");
+            System.out.println("Please select interest categories first\n");
             returningToMainMenu();
         }
         else{
@@ -149,9 +152,10 @@ public class SpAustintaneousApp {
             List<Activity> generatedList = rc.generateActivityList(user.getInterestList());
 
             //printing list and menu choices
-            System.out.println("----- RANDOMLY GENERATED ACTIVITY LIST: -----");
+            System.out.println("----- RANDOMLY GENERATED ACTIVITY LIST: -----\n");
             printGeneratedList(generatedList);
-            System.out.println("----- SELECT FROM THE FOLLOWING OPTIONS -----");
+            System.out.println("\n");
+            System.out.println("----- SELECT FROM THE FOLLOWING OPTIONS -----\n");
             System.out.println("1.Save Generated Activity List");
             System.out.println("2.Generate another Activity List");
             System.out.println("3.Return back to MAIN MENU \n");
@@ -165,7 +169,10 @@ public class SpAustintaneousApp {
                     int choice = Integer.parseInt(input.trim());
 
                     switch (choice) {
-                        case 1-> user.saveActivityList((ArrayList<Activity>) generatedList);
+                        case 1-> {
+                            user.saveActivityList((ArrayList<Activity>) generatedList);
+                            System.out.print("Your generated activity list has been saved.");
+                        }
                         case 2-> generateRecommendationList();
                         case 3 -> done = true;
                         default -> System.out.println("Invalid choice. Please try again.");
@@ -183,20 +190,20 @@ public class SpAustintaneousApp {
 
     private void printGeneratedList(List<Activity> generatedList) {
         for (Activity activity : generatedList) {
-            System.out.println(activity.getName() + " - " + activity.getDescription());
+            //System.out.println("-> " + activity.getName() + " - " + activity.getDescription()+"\n");
+            System.out.println("-> " + activity.toString() + " \n");
         }
     }
 
-    public void savedListsMenu() {
+    private void savedListsMenu() {
         clear();
         boolean done = false;
         while (!done) {
-            System.out.println("-----           SAVED LIST MENU         -----");
-            System.out.println("----- SELECT FROM THE FOLLOWING OPTIONS -----");
+            System.out.println("-----           SAVED LIST MENU         -----\n");
             System.out.println("1.View saved interest categories");
             System.out.println("2.View previously saved recommendation list");
             System.out.println("3.Return back to MAIN MENU\n");
-
+            System.out.println("\n-----  SELECT FROM THE OPTIONS ABOVE    -----\n");
             String input = prompter.prompt("Enter your choice: ");
             //accounting for non-numerical digit
             try {
@@ -223,10 +230,11 @@ public class SpAustintaneousApp {
         while (!done) {
             System.out.println("-----YOUR PREVIOUSLY SAVED RECOMMENDED ACTIVITIES:-----\n");
             printRecommendedActivities();
-            System.out.println("----- SELECT FROM THE FOLLOWING OPTIONS -----");
+            System.out.println("\n--------------------------------------------------------");
+            System.out.println("\n--------------------------------------------------------\n");
             System.out.println("1. Add/Delete recommended activities from saved list(coming soon..)");
-            System.out.println("2. Return back to MAIN MENU\n");
-
+            System.out.println("2. Return back to PREVIOUS MENU\n");
+            System.out.println("\n-----  SELECT FROM THE OPTIONS ABOVE    -----\n");
             String input = prompter.prompt("Enter your choice: ");
             //accounting for non-numerical digit
             try {
@@ -265,10 +273,11 @@ public class SpAustintaneousApp {
         while (!done) {
             System.out.println("-----YOUR PREVIOUSLY SAVED INTEREST CATEGORIES:-----\n");
             printInterestCategories();
-            System.out.println("----- SELECT FROM THE FOLLOWING OPTIONS -----");
+            System.out.println("\n----------------------------------------------------");
+            System.out.println("\n----------------------------------------------------\n");
             System.out.println("1. Add/Delete interest categories from saved list(coming soon..)");
-            System.out.println("2. Return back to MAIN MENU\n");
-
+            System.out.println("2. Return back to PREVIOUS MENU\n");
+            System.out.println("\n-----  SELECT FROM THE OPTIONS ABOVE    -----\n");
             String input = prompter.prompt("Enter your choice: ");
             //accounting for non-numerical digit
             try {
@@ -340,8 +349,7 @@ public class SpAustintaneousApp {
     }
 
     //Creates a new account for current user
-    public void createAccount() {
-        clear();
+    private void createAccount() {
         String username;
         //= prompter.prompt("Enter username: ");
         while(true){
@@ -361,7 +369,6 @@ public class SpAustintaneousApp {
 
     //Returning user can sign in
     private void signIn() {
-        clear();
         String input = prompter.prompt("Enter username: ");
         String trimmedInput = input.trim();
 
@@ -404,7 +411,7 @@ public class SpAustintaneousApp {
         }
     }
 
-    public void returningToMainMenu() {
+    private void returningToMainMenu() {
         String text = "... Returning to main menu ...";
 
         for (int i = 0; i < text.length(); i++) {
@@ -415,7 +422,7 @@ public class SpAustintaneousApp {
         clear();
     }
 
-    public void returningToPreviousMenu() {
+    private void returningToPreviousMenu() {
         String text = "... Returning to previous menu ...";
 
         for (int i = 0; i < text.length(); i++) {
